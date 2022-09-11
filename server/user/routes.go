@@ -1,6 +1,7 @@
 package user
 
 import (
+	"database/sql"
 	"log"
 
 	"github.com/gin-gonic/gin"
@@ -29,7 +30,12 @@ func Register(c *gin.Context) {
 	}
 
 	password, bcErr := bcrypt.GenerateFromPassword([]byte(user.Password), 14)
-	existing_user, _  := GetUserByEmail(user.Email)
+	db, val := c.Keys["db"].(*sql.DB)
+	if val == false {
+		log.Println(db)
+		log.Println(val)
+	}
+	existing_user, _  := GetUserByEmail(db, user.Email)
 	if existing_user.Email != "" {	
 		c.JSON(400, gin.H{
 			"msg": "User already exists",
@@ -40,7 +46,7 @@ func Register(c *gin.Context) {
 		c.JSON(400, gin.H{"Encryption Error": "Failed"})
 	}
 	user.Password = string(password)
-	err := CreatePGUser(&user)
+	err := CreatePGUser(db, &user)
 	if err != nil {
 		log.Println(err)
 		c.JSON(400, gin.H{"Encryption Error": "Failed"})
@@ -63,14 +69,20 @@ func Login(c *gin.Context) {
 		c.JSON(400, gin.H{"msg": "Email or password missing"})
 	}
 
-	existing_user, err := GetUserByEmail(details.Email)
+	db, val := c.Keys["db"].(*sql.DB)
+	if val == false {
+		log.Println(db)
+		log.Println(val)
+	}
+	existing_user, err := GetUserByEmail(db, details.Email)
 
 	if err != nil {
 		c.JSON(500, gin.H{"msg": err})
 	}
 	err = bcrypt.CompareHashAndPassword([]byte(existing_user.Password), []byte(details.Password))
 	if err == nil {
-		token, err := jwtauth.GenerateJWT(existing_user.Email, existing_user.Name)
+		log.Println(existing_user)
+		token, err := jwtauth.GenerateJWT(existing_user.Email, existing_user.Name, int(existing_user.ID))
 		if err != nil {
 			c.JSON(500, gin.H{"msg": err})
 		}

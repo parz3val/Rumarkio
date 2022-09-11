@@ -2,6 +2,7 @@ package jwtauth
 
 import (
 	"errors"
+	"log"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
@@ -11,14 +12,16 @@ var jwtKey = []byte("10196137")
 type JWTClaim struct {
 	User string `json:"user"`
 	Email string `json:"email"`
+	ID int `json:"id"`
 	jwt.StandardClaims
 }
 
-func GenerateJWT(email string, username string) (tokenString string, err error) {
+func GenerateJWT(email string, username string, id int) (tokenString string, err error) {
 	expirationTime := time.Now().Add(1 * time.Hour)
 	claims:= &JWTClaim{
 		Email: email,
 		User: username,
+		ID: id,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: expirationTime.Unix(),
 		},
@@ -49,4 +52,23 @@ func ValidateToken(signedToken string) (err error) {
 		return
 	}
 	return
+}
+
+func ExtractClaims(tokenStr string) (jwt.MapClaims, error) {
+	hmacSecret := jwtKey 
+	token, err := jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
+			// check token signing method etc
+			return hmacSecret, nil
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
+		return claims, nil
+	} else {
+		log.Printf("Invalid JWT Token")
+		return nil, err
+	}
 }
