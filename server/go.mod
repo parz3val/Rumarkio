@@ -7,7 +7,10 @@ require (
 	github.com/lib/pq v1.10.7
 )
 
+require github.com/andybalholm/cascadia v1.3.1 // indirect
+
 require (
+	github.com/PuerkitoBio/goquery v1.8.0
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-playground/locales v0.14.0 // indirect

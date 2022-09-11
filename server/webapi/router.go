@@ -27,6 +27,22 @@ func SetupRoutes() {
 		libs := v1.Group("/lib").Use(AuthMiddleWare())
 		{
 			libs.POST("/new", library.CreateLibrary)
+			libs.POST("/get", library.GetLibraries)
+		}
+
+		cols := v1.Group("/collection").Use(AuthMiddleWare())
+		{
+			cols.POST("/new", library.CreateCollection)
+		}
+
+		tags := v1.Group("/tag").Use(AuthMiddleWare())
+		{
+			tags.POST("/new", library.CreateTag)
+		}
+		
+		marks := v1.Group("/marks").Use(AuthMiddleWare())
+		{
+			marks.POST("/new", library.CreateBookMark)
 		}
 	}
 
