@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
+	jwtauth "poggybitz.com/ruserver/jwtAuth"
 )
 func validateUser(user User) int{
 	if user.Email != "" && user.Name != "" && user.Password != ""{
@@ -53,6 +54,7 @@ func Register(c *gin.Context) {
 	
 }
 
+
 func Login(c *gin.Context) {
 	// get req
 	var details LoginDeets
@@ -68,8 +70,16 @@ func Login(c *gin.Context) {
 	}
 	err = bcrypt.CompareHashAndPassword([]byte(existing_user.Password), []byte(details.Password))
 	if err == nil {
-		c.JSON(200, existing_user)
+		token, err := jwtauth.GenerateJWT(existing_user.Email, existing_user.Name)
+		if err != nil {
+			c.JSON(500, gin.H{"msg": err})
+		}
+		c.JSON(200, gin.H{"accessToken": token})
 	} else {
 		c.JSON(400, gin.H{"msg": "Username or password not correct"})
 	}
+}
+
+func UserInfo(c *gin.Context) {
+	c.JSON(200, gin.H{ "msg": "Secret API"})
 }

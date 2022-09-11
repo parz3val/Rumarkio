@@ -17,6 +17,11 @@ func SetupRoutes() {
 	{
 		v1.POST("/register", user.Register)
 		v1.POST("/login", user.Login)
+
+		secured := v1.Group("/secured").Use(AuthMiddleWare())
+		{
+			secured.POST("/userinfo", user.UserInfo )
+		}
 	}
 
 }
