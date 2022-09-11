@@ -6,9 +6,8 @@ import (
 	_ "github.com/lib/pq" //
 )
 
-var db *sql.DB
-func CreatePGLibrary(lib *Library) error {
-	stmt := `insert into library(name, id, user_id) values ($1, $2, $3);`
+func CreatePGLibrary(db *sql.DB, lib *Library) error {
+	stmt := `insert into libraries(name, id,customer_id) values ($1, $2, $3);`
 	_, err := db.Exec(stmt, lib.Name, lib.ID, lib.UserID)
 	return err
 }

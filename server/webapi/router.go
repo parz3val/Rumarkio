@@ -2,6 +2,7 @@ package webapi
 
 import (
 	"github.com/gin-gonic/gin"
+	"poggybitz.com/ruserver/library"
 	"poggybitz.com/ruserver/user"
 )
 
@@ -21,6 +22,11 @@ func SetupRoutes() {
 		secured := v1.Group("/secured").Use(AuthMiddleWare())
 		{
 			secured.POST("/userinfo", user.UserInfo )
+		}
+
+		libs := v1.Group("/lib").Use(AuthMiddleWare())
+		{
+			libs.POST("/new", library.CreateLibrary)
 		}
 	}
 
