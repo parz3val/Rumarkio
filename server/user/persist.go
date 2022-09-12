@@ -46,7 +46,7 @@ func GetUserByEmail(db *sql.DB,email string) (User, error) {
 	}
 
 	for rows.Next() {
-		err = rows.Scan(&user.ID, &user.Name, &user.Email, &user.Password)
+		err = rows.Scan(&user.ID, &user.Name, &user.Email, &user.Password, &user.CreatedOn, &user.ModifiedOn, &user.ProfilePicture)
 		if err != nil {
 			return User {}, err
 		}

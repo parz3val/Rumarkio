@@ -65,8 +65,11 @@ func Login(c *gin.Context) {
 	// get req
 	var details LoginDeets
 	c.Bind(&details)
+	log.Println(details)
 	if details.Email == "" || details.Password == ""{
 		c.JSON(400, gin.H{"msg": "Email or password missing"})
+		c.Abort()
+		return 
 	}
 
 	db, val := c.Keys["db"].(*sql.DB)
@@ -75,9 +78,11 @@ func Login(c *gin.Context) {
 		log.Println(val)
 	}
 	existing_user, err := GetUserByEmail(db, details.Email)
-
+	log.Println(err)
 	if err != nil {
 		c.JSON(500, gin.H{"msg": err})
+		c.Abort()
+		return
 	}
 	err = bcrypt.CompareHashAndPassword([]byte(existing_user.Password), []byte(details.Password))
 	if err == nil {
@@ -89,6 +94,8 @@ func Login(c *gin.Context) {
 		c.JSON(200, gin.H{"accessToken": token})
 	} else {
 		c.JSON(400, gin.H{"msg": "Username or password not correct"})
+		c.Abort()
+		return
 	}
 }
 
