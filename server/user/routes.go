@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 	jwtauth "poggybitz.com/ruserver/jwtAuth"
 )
@@ -19,7 +20,6 @@ func Register(c *gin.Context) {
 	// get apop
 	var user User
 	c.Bind(&user)
-	log.Println(user)
 	validate := validateUser(user);
 
 	if validate == 0 {
@@ -29,6 +29,8 @@ func Register(c *gin.Context) {
 		return
 	}
 
+	// generate uuid for user id
+	user.ID = uuid.New()
 	password, bcErr := bcrypt.GenerateFromPassword([]byte(user.Password), 14)
 	db, val := c.Keys["db"].(*sql.DB)
 	if val == false {
@@ -49,7 +51,7 @@ func Register(c *gin.Context) {
 	err := CreatePGUser(db, &user)
 	if err != nil {
 		log.Println(err)
-		c.JSON(400, gin.H{"Encryption Error": "Failed"})
+		c.JSON(400, gin.H{"Failed to create user": (user.Name)})
 		return
 	}
 
@@ -67,6 +69,7 @@ func Login(c *gin.Context) {
 	c.Bind(&details)
 	if details.Email == "" || details.Password == ""{
 		c.JSON(400, gin.H{"msg": "Email or password missing"})
+		return
 	}
 
 	db, val := c.Keys["db"].(*sql.DB)
@@ -74,21 +77,29 @@ func Login(c *gin.Context) {
 		log.Println(db)
 		log.Println(val)
 	}
+	log.Println("The details are ::->", details)
 	existing_user, err := GetUserByEmail(db, details.Email)
+	log.Println("Existing user is ::-> ", existing_user)
 
 	if err != nil {
 		c.JSON(500, gin.H{"msg": err})
+		return
 	}
 	err = bcrypt.CompareHashAndPassword([]byte(existing_user.Password), []byte(details.Password))
 	if err == nil {
 		log.Println(existing_user)
-		token, err := jwtauth.GenerateJWT(existing_user.Email, existing_user.Name, int(existing_user.ID))
+		existing_ID, _ := uuid.Parse(existing_user.ID)
+		token, err := jwtauth.GenerateJWT(existing_user.Email, existing_user.Name, (existing_ID) )
+		log.Println("The token is", token)
 		if err != nil {
 			c.JSON(500, gin.H{"msg": err})
+			return
 		}
 		c.JSON(200, gin.H{"accessToken": token})
+		return
 	} else {
 		c.JSON(400, gin.H{"msg": "Username or password not correct"})
+		return
 	}
 }
 

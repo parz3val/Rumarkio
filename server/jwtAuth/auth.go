@@ -6,17 +6,18 @@ import (
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
+	"github.com/google/uuid"
 )
 var jwtKey = []byte("10196137")
 
 type JWTClaim struct {
 	User string `json:"user"`
 	Email string `json:"email"`
-	ID int `json:"id"`
+	ID uuid.UUID `json:"id"`
 	jwt.StandardClaims
 }
 
-func GenerateJWT(email string, username string, id int) (tokenString string, err error) {
+func GenerateJWT(email string, username string, id uuid.UUID) (tokenString string, err error) {
 	expirationTime := time.Now().Add(1 * time.Hour)
 	claims:= &JWTClaim{
 		Email: email,
