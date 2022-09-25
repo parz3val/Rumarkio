@@ -7,15 +7,32 @@ import (
 	"net/url"
 
 	"github.com/PuerkitoBio/goquery"
+	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 )
 
 
 
 func CreateLibrary(c *gin.Context) {
+	// parse the user info
+	user := c.Keys["user"].(jwt.MapClaims)
 	var lib Library
 	c.Bind(&lib)
+	log.Println("The user is :: ##")
+	log.Println(user)
+	// set a default name for the library if no name is provided
+
+	if userId, found := user["id"]; found {
+		userF := userId.(float64)
+		lib.UserID = uint64(userF)
+	} 
 	
+	if lib.Name == "" {
+		lib.Name = "defaultlib"
+	}
+
+	log.Println(lib)
+
 	// TO DO : Validate the library
 	db, _ := c.Keys["db"].(*sql.DB)
 	err := CreatePGLibrary(db, &lib)

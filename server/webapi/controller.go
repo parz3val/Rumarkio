@@ -41,6 +41,7 @@ func AuthMiddleWare() gin.HandlerFunc {
 			log.Println(err)
 		}
 		log.Println(claim)
+		context.Set("user", claim)
 
 		context.Next()
 	}
@@ -49,7 +50,7 @@ func AuthMiddleWare() gin.HandlerFunc {
 
 
 func setupPOSTGRES() {
-	dsn := "host=0.0.0.0 port=5432 user=postgres password=rumarkio dbname=rumarkio_test sslmode=disable"
+	dsn := "host=0.0.0.0 port=5432 user=postgres password=postgres dbname=rumarkio sslmode=disable"
 	var err error
 	DB, err = sql.Open("postgres", dsn)
 

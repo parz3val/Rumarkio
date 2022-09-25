@@ -8,8 +8,8 @@ import (
 )
 
 func CreatePGLibrary(db *sql.DB, lib *Library) error {
-	stmt := `insert into libraries(name, id,customer_id) values ($1, $2, $3);`
-	_, err := db.Exec(stmt, lib.Name, lib.ID, lib.UserID)
+	stmt := `insert into libraries(name,customer_id) values ($1, $2);`
+	_, err := db.Exec(stmt, lib.Name,lib.UserID)
 	return err
 }
 
