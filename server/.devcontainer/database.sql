@@ -1,44 +1,48 @@
 -- // users table
 create table users(
-id serial not null unique,
+id uuid not null unique,
 name varchar(64) not null, 
 email varchar(64) not null unique,
 password text not null,
+created_on timestamp not null default current_timestamp,
 primary key (id) );
 
 -- Libraries table
 create table libraries(
-id serial not null unique,
+id uuid not null unique,
 name varchar(64) not null, 
-customer_id serial not null references users(id)
+created_on timestamp not null default current_timestamp,
+customer_id uuid not null references users(id)
 );
 
 -- collections table
 create table collections(
+id uuid not null unique,
 name varchar(64) not null, 
-id serial not null unique,
 created_on timestamp not null default current_timestamp,
 modified_on timestamp not null default current_timestamp,
-library serial not null  references libraries(id)
+library uuid references libraries(id),
+customer_id uuid not null references users(id)
 );
 
 -- tags table
 create table tags(
-name varchar(64) not null, 
-id serial not null unique,
+name varchar(64) not null,
+id uuid not null unique,
 created_on timestamp not null default current_timestamp,
 modified_on timestamp not null default current_timestamp,
-customer_id serial not null references users(id)
+customer_id uuid not null references users(id)
 );
 
 -- bookmarks table
 create table bookmarks(
 url varchar(1024) not null, 
-domain varchar(200) not null, 
-id serial not null unique,
+domain varchar(200), 
+id uuid not null unique,
 created_on timestamp not null default current_timestamp,
 modified_on timestamp not null default current_timestamp,
 description varchar(1024) not null, 
-collection serial not null  references collections(id),
-tag serial not null references tags(id)
+collection uuid references collections(id),
+tag uuid  references tags(id),
+customer_id uuid not null references users(id)
 );
