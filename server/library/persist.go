@@ -56,11 +56,6 @@ func CreatePGTag(db *sql.DB, tag *Tag) error {
 
 // func GetTagsByUser() ([]Tag, error) {}
 
-func CreatePGBookMark(db *sql.DB, mark *BookMark) error {
-	stmt := `insert into bookmarks(url, domain, tag, collection, description) values($1, $2, $3, $4, $5);`
-	_, err := db.Exec(stmt, mark.Str, mark.Domain, mark.Tag, mark.Collection, mark.Description)
-	return err
-}
 
 // func GetAllBookMarkByCollection() ([]BookMark, error){}
 

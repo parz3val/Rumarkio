@@ -3,10 +3,7 @@ package library
 import (
 	"database/sql"
 	"log"
-	"net/http"
-	"net/url"
 
-	"github.com/PuerkitoBio/goquery"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 )
@@ -125,52 +122,26 @@ func CreateTag(c *gin.Context) {
 	})
 }
 
-type BookMarkInput struct {
-	Url string `json:"url"`
-	Collection uint64 `json:"collection"`
-	Tag uint64 `json:"tag"`
-}
-func CreateBookMark(c *gin.Context) {
-	var input BookMarkInput
-	c.Bind(&input)
 
-	db, _ := c.Keys["db"].(*sql.DB)
+// func wreateBookMark(c *gin.Context) {
+// 	var input BookMarkInput
+// 	c.Bind(&input)
 
-	mark := newBookMark(&input)
-	err := CreatePGBookMark(db, &mark)
-	if err!= nil {
-		log.Println(err)
-		c.JSON(500, gin.H{
-			"msg": err,
-		})
-		return
-	}
+// 	db, _ := c.Keys["db"].(*sql.DB)
 
-	c.JSON(200, gin.H{
-		"msg": "Success",
-		"data": mark,
-	})
-}
+// 	mark := newBookMark(&input)
+// 	err := CreatePGBookMark(db, &mark)
+// 	if err!= nil {
+// 		log.Println(err)
+// 		c.JSON(500, gin.H{
+// 			"msg": err,
+// 		})
+// 		return
+// 	}
 
-func newBookMark(input *BookMarkInput) BookMark {
-	link, _ := url.Parse(input.Url)
-	resp, err := http.Get(input.Url)
-	if err != nil {
-		return BookMark{}
-	}
-	defer resp.Body.Close()
-	body, err := goquery.NewDocumentFromReader(resp.Body) 
-	if err != nil {
-		return BookMark{}
-	}
-	title_text := body.Find("title").Text()
-	log.Println(title_text)
-	return BookMark{
-		Str: input.Url,
-		Domain: link.Hostname(),
-		Collection: input.Collection,
-		Tag: input.Tag,
-		Description: title_text,
-	}
-}
+// 	c.JSON(200, gin.H{
+// 		"msg": "Success",
+// 		"data": mark,
+// 	})
+// }
 

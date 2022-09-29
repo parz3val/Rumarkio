@@ -21,12 +21,3 @@ type URL struct {
 	Str string `json:"url_str"`
 	Domain string `json:"domain"`
 }
-
-type BookMark struct {
-	Str string `json:"url_str"`
-	Domain string `json:"domain"`
-	Tag uint64 `json:"tag"`
-	Collection uint64 `json:"collection"`
-	Description string `json:"description"`
-
-}

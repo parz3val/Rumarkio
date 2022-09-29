@@ -2,6 +2,7 @@ package webapi
 
 import (
 	"github.com/gin-gonic/gin"
+	"poggybitz.com/ruserver/bookmark"
 	"poggybitz.com/ruserver/library"
 	"poggybitz.com/ruserver/user"
 )
@@ -42,7 +43,7 @@ func SetupRoutes() {
 		
 		marks := v1.Group("/marks").Use(AuthMiddleWare())
 		{
-			marks.POST("/new", library.CreateBookMark)
+			marks.POST("/new", bookmark.CreateBookmark)
 		}
 	}
 
