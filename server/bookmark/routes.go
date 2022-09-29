@@ -73,3 +73,6 @@ func CreateBookmark(c *gin.Context) {
 	})
 }
 
+func GetAll(c *gin.Context) {
+	
+}
