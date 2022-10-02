@@ -1,15 +1,11 @@
 package library
 
+import "github.com/google/uuid"
+
 type Library struct {
+	ID uuid.UUID `json:"id"`
 	Name string `json:"name"`
-	ID uint64 `json:"id"`
-	UserID uint64 `json:"user_id"`
-}
-
-
-
-
-type URL struct {
-	Str string `json:"url_str"`
-	Domain string `json:"domain"`
+	CreatedOn string `json:"created_on"`
+	ModifiedOn string `json:"modified_on"`
+	CustomerID uuid.UUID `json:"customer_id"`
 }

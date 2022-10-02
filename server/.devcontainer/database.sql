@@ -12,6 +12,7 @@ create table libraries(
 id uuid not null unique,
 name varchar(64) not null, 
 created_on timestamp not null default current_timestamp,
+modified_on timestamp not null default current_timestamp,
 customer_id uuid not null references users(id)
 );
 

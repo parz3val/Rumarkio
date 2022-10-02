@@ -6,66 +6,55 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 )
 
+type Lib struct {
+	Name string `json:"name"`
+}
 
 
 func CreateLibrary(c *gin.Context) {
-	// parse the user info
+	defer c.Abort()
+	var input Lib
 	user := c.Keys["user"].(jwt.MapClaims)
-	var lib Library
-	c.Bind(&lib)
-	log.Println("The user is :: ##")
-	log.Println(user)
-	// set a default name for the library if no name is provided
-
-	if userId, found := user["id"]; found {
-		userF := userId.(float64)
-		lib.UserID = uint64(userF)
-	} 
-	
-	if lib.Name == "" {
-		lib.Name = "defaultlib"
+	userId, _ := uuid.Parse(user["id"].(string))
+	lib := Library{
+		Name: input.Name,
+		ID: uuid.New(),
+		CustomerID: userId,
 	}
 
-	log.Println(lib)
-
-	// TO DO : Validate the library
 	db, _ := c.Keys["db"].(*sql.DB)
+
 	err := CreatePGLibrary(db, &lib)
-	if err != nil {
-		log.Println(err)
-		c.JSON(400, gin.H {
-			"msg": "Couldn't create library",
-		})
-	}
-}
-
-type GetUserLibsInput struct {
-	User int `json:"user"`
-}
-func GetLibraries(c *gin.Context) {
-	var user GetUserLibsInput
-	c.Bind(&user)
-	
-	db, _ := c.Keys["db"].(*sql.DB)
-
-	data, err := GetUserLibraries(db, user.User)
-
-	if err != nil {
+	if err!= nil {
 		log.Println(err)
 		c.JSON(500, gin.H{
 			"msg": err,
 		})
-		c.Abort()
 		return
 	}
-
 	c.JSON(200, gin.H{
-		"msg": data,
+		"msg": "Sucess",
+		"data": lib ,
 	})
-
 }
 
-
-
+func GetAllLibs(c *gin.Context) {
+	defer c.Abort()
+	user := c.Keys["user"].(jwt.MapClaims)
+	userId, _ := uuid.Parse(user["id"].(string))
+	db, _ := c.Keys["db"].(*sql.DB)
+	libs, err := GetAllPGLibraries(userId, db)
+	if err != nil {
+		c.JSON(500, gin.H{
+			"msg": err,
+		})
+		return
+	}
+	c.JSON(200, gin.H{
+		"msg": "Success",
+		"data": libs,
+	})
+}

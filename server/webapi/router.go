@@ -30,7 +30,7 @@ func SetupRoutes() {
 		libs := v1.Group("/lib").Use(AuthMiddleWare())
 		{
 			libs.POST("/new", library.CreateLibrary)
-			libs.POST("/get", library.GetLibraries)
+			libs.GET("/get", library.GetAllLibs)
 		}
 
 		cols := v1.Group("/collection").Use(AuthMiddleWare())
