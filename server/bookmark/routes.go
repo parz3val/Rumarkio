@@ -14,16 +14,16 @@ import (
 	"github.com/google/uuid"
 )
 
-func newBookMark(input *BookMarkInput, customer uuid.UUID) BookMark {
+func newBookMark(input *BookMarkInput, customer uuid.UUID) (BookMark, error){
 	link, _ := url.Parse(input.Url)
 	resp, err := http.Get(input.Url)
 	if err != nil {
-		return BookMark{}
+		return BookMark{}, err
 	}
 	defer resp.Body.Close()
 	body, err := goquery.NewDocumentFromReader(resp.Body) 
 	if err != nil {
-		return BookMark{}
+		return BookMark{}, err
 	}
 	title_text := body.Find("title").Text()
 	tid_, err := uuid.Parse(input.Tag) 
@@ -56,7 +56,7 @@ func newBookMark(input *BookMarkInput, customer uuid.UUID) BookMark {
 		Url: input.Url,
 		Domain: link.Hostname(),
 		Description: title_text,
-	}
+	}, nil
 }
 
 type BookMarkInput struct {
@@ -82,8 +82,14 @@ func CreateBookmark(c *gin.Context) {
 		})
 		return
 	}
-	mark := newBookMark(&input, user_id)
-
+	mark, err := newBookMark(&input, user_id)
+	if err != nil {
+		log.Println(err)
+		c.JSON(500, gin.H{
+			"msg": err,
+		})
+		return
+	}
 	err = CreatePGBookMark(db, &mark)
 
 	if err!= nil {
