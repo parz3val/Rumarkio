@@ -103,8 +103,7 @@ func GetAllMarksByDomain(c *gin.Context) {
 	db, _ := c.Keys["db"].(*sql.DB)
 	user := c.Keys["user"].(jwt.MapClaims)
 	userId, _ := uuid.Parse(user["id"].(string))
-
-	domain := "go.dev"
+	domain := c.Query("domain")
 	bookmarks, err := GetBookmarksByDomain(domain, userId, db)
 
 	if err != nil {
