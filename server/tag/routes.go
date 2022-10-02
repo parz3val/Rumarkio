@@ -28,6 +28,15 @@ func CreateTag(c *gin.Context) {
 
 	db, _ := c.Keys["db"].(*sql.DB)
 
+	exists_, _ := TagExistsForUser(db, &tag)
+
+	if exists_ {
+
+		c.JSON(401, gin.H{
+			"msg": "Tag with the name already exists. Please use another name!",
+		})
+		return
+	}
 	err := CreatePGTag(db, &tag)
 	if err!= nil {
 		log.Println(err)

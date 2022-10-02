@@ -15,6 +15,8 @@ type CollectionInput struct {
 	Name string `json:"name"`
 	Library uuid.NullUUID `json:"library"`
 }
+
+
 func CreateCollection(c *gin.Context) {
 	defer c.Abort()
 	var input CollectionInput
