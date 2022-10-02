@@ -39,12 +39,7 @@ func GetUserLibraries(db *sql.DB, user int) ([]Library, error) {
 	return libs, err
 }
 
-func CreatePGCollection(db *sql.DB, col *Collection) error {
-	stmt := `insert into collections(name, library) values($1, $2);`
-	_, err := db.Exec(stmt, col.Name, col.Library)
-	return err
 
-}
 
 // func GetCollectionsByLibrary() ([]Collection, error){}
 

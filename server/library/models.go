@@ -6,11 +6,7 @@ type Library struct {
 	UserID uint64 `json:"user_id"`
 }
 
-type Collection struct {
-	Name string `json:"name"`
-	ID uint64 `json:"id"`
-	Library uint64 `json:"library"`
-}
+
 type Tag struct {
 	Name string `json:"name"`
 	ID uint64 `json:"id"`

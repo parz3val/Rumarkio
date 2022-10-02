@@ -66,33 +66,7 @@ func GetLibraries(c *gin.Context) {
 	})
 
 }
-type CollectionInput struct {
-	Name string `json:"name"`
-	Library uint64 `json:"library"`
-}
-func CreateCollection(c *gin.Context) {
-	var input CollectionInput
-	c.Bind(&input)
 
-	db, _ := c.Keys["db"].(*sql.DB)
-    col := Collection{
-		Name: input.Name,
-		Library: input.Library,
-	}
-	err := CreatePGCollection(db, &col);
-	if err!= nil {
-		log.Println(err)
-		c.JSON(500, gin.H{
-			"msg": err,
-		})
-		return
-	}
-	c.JSON(200, gin.H{
-		"msg": "Sucess",
-		"data": col,
-	})
-
-}
 type TagInput struct {
 	Name string `json:"name"`
 	User uint64 `json:"user"`

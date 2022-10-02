@@ -3,6 +3,7 @@ package webapi
 import (
 	"github.com/gin-gonic/gin"
 	"poggybitz.com/ruserver/bookmark"
+	"poggybitz.com/ruserver/collection"
 	"poggybitz.com/ruserver/library"
 	"poggybitz.com/ruserver/user"
 )
@@ -33,7 +34,7 @@ func SetupRoutes() {
 
 		cols := v1.Group("/collection").Use(AuthMiddleWare())
 		{
-			cols.POST("/new", library.CreateCollection)
+			cols.POST("/new", collection.CreateCollection)
 		}
 
 		tags := v1.Group("/tag").Use(AuthMiddleWare())
