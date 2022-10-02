@@ -30,8 +30,8 @@ func AuthMiddleWare() gin.HandlerFunc {
 		}
 		log.Println(tokenStr)
 		err := jwtauth.ValidateToken(tokenStr)
-
 		if err != nil {
+			fmt.Println(err)
 			context.JSON(401, gin.H{"msg": "Unauthorized"})
 			context.Abort()
 			return

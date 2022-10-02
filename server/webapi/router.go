@@ -5,6 +5,7 @@ import (
 	"poggybitz.com/ruserver/bookmark"
 	"poggybitz.com/ruserver/collection"
 	"poggybitz.com/ruserver/library"
+	"poggybitz.com/ruserver/tag"
 	"poggybitz.com/ruserver/user"
 )
 
@@ -39,7 +40,8 @@ func SetupRoutes() {
 
 		tags := v1.Group("/tag").Use(AuthMiddleWare())
 		{
-			tags.POST("/new", library.CreateTag)
+			tags.POST("/new", tag.CreateTag)
+			tags.GET("/all", tag.GetAllTags)
 		}
 		
 		marks := v1.Group("/marks").Use(AuthMiddleWare())

@@ -40,18 +40,3 @@ func GetUserLibraries(db *sql.DB, user int) ([]Library, error) {
 }
 
 
-
-// func GetCollectionsByLibrary() ([]Collection, error){}
-
-func CreatePGTag(db *sql.DB, tag *Tag) error {
-	stmt := `insert into tags(name, customer_id) values($1, $2);`
-	_, err := db.Exec(stmt, tag.Name, tag.UserId)
-	return err
-}
-
-// func GetTagsByUser() ([]Tag, error) {}
-
-
-// func GetAllBookMarkByCollection() ([]BookMark, error){}
-
-// func GetAllBookMarkByTag() ([]BookMark, error){}

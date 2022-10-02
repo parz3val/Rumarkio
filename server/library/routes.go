@@ -67,55 +67,5 @@ func GetLibraries(c *gin.Context) {
 
 }
 
-type TagInput struct {
-	Name string `json:"name"`
-	User uint64 `json:"user"`
-}
-func CreateTag(c *gin.Context) {
-	var input TagInput
-	c.Bind(&input)
 
-	tag := Tag{
-		Name: input.Name,
-		UserId: input.User,
-	}
-
-	db, _ := c.Keys["db"].(*sql.DB)
-
-	err := CreatePGTag(db, &tag)
-	if err!= nil {
-		log.Println(err)
-		c.JSON(500, gin.H{
-			"msg": err,
-		})
-		return
-	}
-	c.JSON(200, gin.H{
-		"msg": "Sucess",
-		"data": tag,
-	})
-}
-
-
-// func wreateBookMark(c *gin.Context) {
-// 	var input BookMarkInput
-// 	c.Bind(&input)
-
-// 	db, _ := c.Keys["db"].(*sql.DB)
-
-// 	mark := newBookMark(&input)
-// 	err := CreatePGBookMark(db, &mark)
-// 	if err!= nil {
-// 		log.Println(err)
-// 		c.JSON(500, gin.H{
-// 			"msg": err,
-// 		})
-// 		return
-// 	}
-
-// 	c.JSON(200, gin.H{
-// 		"msg": "Success",
-// 		"data": mark,
-// 	})
-// }
 
