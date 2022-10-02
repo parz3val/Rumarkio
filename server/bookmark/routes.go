@@ -26,9 +26,32 @@ func newBookMark(input *BookMarkInput, customer uuid.UUID) BookMark {
 		return BookMark{}
 	}
 	title_text := body.Find("title").Text()
-	log.Println(title_text)
+	tid_, err := uuid.Parse(input.Tag) 
+	tbool := true
+	cbool := true
+	if err !=nil {
+		tbool = false
+	}
+	col_, err := uuid.Parse(input.Collection)
+
+	if err != nil {
+		cbool = false
+	}
+
+	tag_id := &uuid.NullUUID{
+			UUID: tid_,
+			Valid: tbool,
+	}
+	col_id := &uuid.NullUUID{
+		UUID: col_,
+		Valid: cbool,
+	}
+
+
 	return BookMark{
 		ID: uuid.New(),
+		Tag: *tag_id,
+		Collection: *col_id,
 		CustomerID: customer,
 		Url: input.Url,
 		Domain: link.Hostname(),
@@ -38,7 +61,10 @@ func newBookMark(input *BookMarkInput, customer uuid.UUID) BookMark {
 
 type BookMarkInput struct {
 	Url string `json:"url"`
+	Collection string `json:"collection"`
+	Tag string `json:"tag"`
 }
+
 
 
 func CreateBookmark(c *gin.Context) {
@@ -105,6 +131,55 @@ func GetAllMarksByDomain(c *gin.Context) {
 	userId, _ := uuid.Parse(user["id"].(string))
 	domain := c.Query("domain")
 	bookmarks, err := GetBookmarksByDomain(domain, userId, db)
+
+	if err != nil {
+		c.JSON(500, gin.H{
+			"msg": "Not found!",
+		})
+		return
+	}
+
+	c.JSON(200, gin.H{
+		"msg": "Success", 
+		"data": bookmarks,
+		
+	})
+}
+
+func GetAllMarksByTag(c *gin.Context) {
+	defer c.Abort()
+
+	db, _ := c.Keys["db"].(*sql.DB)
+	user := c.Keys["user"].(jwt.MapClaims)
+	userId, _ := uuid.Parse(user["id"].(string))
+	tag_ := c.Query("tag")
+	tagId := uuid.MustParse(tag_)
+	bookmarks, err := GetBookmarksByTag(tagId, userId, db)
+
+	if err != nil {
+		c.JSON(500, gin.H{
+			"msg": "Not found!",
+		})
+		return
+	}
+
+	c.JSON(200, gin.H{
+		"msg": "Success", 
+		"data": bookmarks,
+		
+	})
+}
+
+
+func GetAllMarksByCollection(c *gin.Context) {
+	defer c.Abort()
+
+	db, _ := c.Keys["db"].(*sql.DB)
+	user := c.Keys["user"].(jwt.MapClaims)
+	userId, _ := uuid.Parse(user["id"].(string))
+	col := c.Query("collection")
+	colId := uuid.MustParse(col)
+	bookmarks, err := GetBookmarksByCollection(colId, userId, db)
 
 	if err != nil {
 		c.JSON(500, gin.H{

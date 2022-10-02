@@ -49,6 +49,8 @@ func SetupRoutes() {
 			marks.POST("/new", bookmark.CreateBookmark)
 			marks.GET("/all", bookmark.GetAllBookmarks)
 			marks.GET("/domain", bookmark.GetAllMarksByDomain)
+			marks.GET("/tag", bookmark.GetAllMarksByTag)
+			marks.GET("/collection", bookmark.GetAllMarksByCollection)
 		}
 	}
 
