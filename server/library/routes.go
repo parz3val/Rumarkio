@@ -17,6 +17,7 @@ type Lib struct {
 func CreateLibrary(c *gin.Context) {
 	defer c.Abort()
 	var input Lib
+	c.Bind(&input)
 	user := c.Keys["user"].(jwt.MapClaims)
 	userId, _ := uuid.Parse(user["id"].(string))
 	lib := Library{

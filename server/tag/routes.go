@@ -17,6 +17,7 @@ type TagInput struct {
 func CreateTag(c *gin.Context) {
 	defer c.Abort()
 	var input TagInput
+	c.Bind(&input)
 	user := c.Keys["user"].(jwt.MapClaims)
 	userId, _ := uuid.Parse(user["id"].(string))
 	tag := Tag{
