@@ -36,7 +36,7 @@ customer_id uuid not null references users(id)
 
 -- bookmarks table
 create table bookmarks(
-url varchar(1024) not null, 
+url varchar(1024) not null unique, 
 domain varchar(200), 
 id uuid not null unique,
 created_on timestamp not null default current_timestamp,

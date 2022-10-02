@@ -44,7 +44,8 @@ func SetupRoutes() {
 		marks := v1.Group("/marks").Use(AuthMiddleWare())
 		{
 			marks.POST("/new", bookmark.CreateBookmark)
-			marks.POST("/all", bookmark.GetAll)
+			marks.GET("/all", bookmark.GetAllBookmarks)
+			marks.GET("/domain", bookmark.GetAllMarksByDomain)
 		}
 	}
 

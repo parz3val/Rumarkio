@@ -2,6 +2,7 @@ package bookmark
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 	"net/http"
 	"net/url"
@@ -29,7 +30,7 @@ func newBookMark(input *BookMarkInput, customer uuid.UUID) BookMark {
 	return BookMark{
 		ID: uuid.New(),
 		CustomerID: customer,
-		UrlStr: input.Url,
+		Url: input.Url,
 		Domain: link.Hostname(),
 		Description: title_text,
 	}
@@ -73,6 +74,49 @@ func CreateBookmark(c *gin.Context) {
 	})
 }
 
-func GetAll(c *gin.Context) {
+func GetAllBookmarks(c *gin.Context) {
+
+	defer c.Abort()
+	db, _ := c.Keys["db"].(*sql.DB)
+	user := c.Keys["user"].(jwt.MapClaims)
+	userId, _ := uuid.Parse(user["id"].(string))
+	fmt.Println(userId)
+	bookmarks, err := GetAllPGBookmarks(userId, db)
+	fmt.Println(bookmarks)
+	if err != nil {
+		c.JSON(500, gin.H{
+			"msg": "Not found!",
+		})
+		return
+	}
+
+	c.JSON(200, gin.H{
+		"msg": "Success", 
+		"data": bookmarks,
+		
+	})
 	
+}
+func GetAllMarksByDomain(c *gin.Context) {
+	defer c.Abort()
+
+	db, _ := c.Keys["db"].(*sql.DB)
+	user := c.Keys["user"].(jwt.MapClaims)
+	userId, _ := uuid.Parse(user["id"].(string))
+
+	domain := "go.dev"
+	bookmarks, err := GetBookmarksByDomain(domain, userId, db)
+
+	if err != nil {
+		c.JSON(500, gin.H{
+			"msg": "Not found!",
+		})
+		return
+	}
+
+	c.JSON(200, gin.H{
+		"msg": "Success", 
+		"data": bookmarks,
+		
+	})
 }
