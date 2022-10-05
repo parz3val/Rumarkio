@@ -1,11 +1,14 @@
 package user
 
 import (
+	"context"
 	"database/sql"
 	"log"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
+	"github.com/procyon-projects/chrono"
 	"golang.org/x/crypto/bcrypt"
 	jwtauth "poggybitz.com/ruserver/jwtAuth"
 )
@@ -55,6 +58,19 @@ func Register(c *gin.Context) {
 		return
 	}
 
+	taskScheduler := chrono.NewDefaultTaskScheduler()
+	go func() {
+		now := time.Now()
+		startTime := now.Add(time.Second * 30)
+		_, err := taskScheduler.Schedule(func(ctx context.Context) {
+			SendVerificationEmail(existing_user)
+	}, chrono.WithTime(startTime))
+
+	if err == nil {
+		log.Print("Email task scheduled successfully!")
+	}
+
+	}()
 	// return the created user
 	c.JSON(200, gin.H{
 		"msg": "Registration Successful!",
@@ -73,13 +89,12 @@ func Login(c *gin.Context) {
 	}
 
 	db, val := c.Keys["db"].(*sql.DB)
-	if val == false {
+	if !val  {
 		log.Println(db)
 		log.Println(val)
 	}
-	log.Println("The details are ::->", details)
 	existing_user, err := GetUserByEmail(db, details.Email)
-	log.Println("Existing user is ::-> ", existing_user)
+
 
 	if err != nil {
 		c.JSON(500, gin.H{"msg": err})
