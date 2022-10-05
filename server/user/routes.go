@@ -71,7 +71,9 @@ func Register(c *gin.Context) {
 	}
 
 	}()
-	// return the created user
+	taskScheduler.Shutdown() //
+	// The Shutdown() method doesn't cause immediate shut down of the Scheduler and returns a channel. 
+	// It will make the Scheduler stop accepting new tasks and shut down after all running tasks finish their current work.
 	c.JSON(200, gin.H{
 		"msg": "Registration Successful!",
 	})
