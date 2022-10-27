@@ -10,6 +10,8 @@ serde = { version = "1.0", features = ["derive"] }
 wasm-bindgen-futures = "0.4"
 yew = "^0.19"
 yew-router = "0.16.0"
+stylist = {version = "0.10.0", features=["yew"]}
+
 
 
 [dependencies.web-sys]

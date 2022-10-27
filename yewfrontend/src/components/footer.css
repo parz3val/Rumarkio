@@ -1,0 +1,16 @@
+div {
+    position: relative;
+    display: flex;
+    flex-direction:row;
+    background-color:rgb(113, 86, 52);
+    padding: 5pt 5t;
+    vertical-align: bottom;
+    flex-direction: row;
+    /* justify-content: space-evenly; */
+
+}
+
+ul {
+    list-style: none;
+    font-size: 15pt;
+}

@@ -1,10 +1,25 @@
+use stylist::yew::styled_component;
 use yew::prelude::*;
 
-#[function_component(Footer)]
+const STYLE_FILE: &str = include_str!("footer.css");
+
+#[styled_component(Footer)]
 pub fn footer() -> Html {
+    let style = stylist::Style::new(STYLE_FILE).unwrap();
     html! {
-        <footer>
-        <h4>{"This is footer"}</h4>
+        <footer class={style}>
+        <div>
+        <p>
+        <ul>
+        <li>
+        {"Rumarkio @2022"}
+        </li>
+        <li>
+        {"Built with Rust and Yew"}
+        </li>
+        </ul>
+        </p>
+        </div>
         </footer>
     }
 }

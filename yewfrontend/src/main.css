@@ -1,0 +1,18 @@
+
+nav {
+    background-color:rgb(113, 86, 52);
+    padding: 20pt 10pt;
+}
+
+p {
+  color: orange;
+  font-size: 26px;
+}
+
+a {
+    margin: 5pt 20pt;
+    font-size: 20pt;
+    color:blanchedalmond;
+    font-family: 'Playfair Display SC', serif;
+    text-decoration: none;
+}

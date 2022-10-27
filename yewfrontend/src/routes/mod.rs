@@ -1,10 +1,11 @@
 use yew::prelude::*;
 use yew_router::Routable;
 
+pub(crate) mod home;
 pub(crate) mod login;
 pub(crate) mod not_found;
 pub(crate) mod register;
-use crate::components::home::Home;
+use home::Home;
 use login::Login;
 use not_found::NotFound;
 use register::Register;
