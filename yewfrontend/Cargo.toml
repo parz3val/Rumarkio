@@ -1,0 +1,24 @@
+[package]
+name = "yewfrontend"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[dependencies]
+gloo-net = "0.2"
+serde = { version = "1.0", features = ["derive"] }
+wasm-bindgen-futures = "0.4"
+yew = "^0.19"
+yew-router = "0.16.0"
+
+
+[dependencies.web-sys]
+version = "0.3"
+features = [
+  "Document",
+  "Element",
+  "Node",
+  "Window",
+  "HtmlCollection",
+  "HtmlInputElement",
+]
