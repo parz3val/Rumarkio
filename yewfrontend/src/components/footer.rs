@@ -10,15 +10,12 @@ pub fn footer() -> Html {
         <footer class={style}>
         <div>
         <p>
-        <ul>
-        <li>
+
         {"Rumarkio @2022"}
-        </li>
-        <li>
+</p>
+<p>
         {"Built with Rust and Yew"}
-        </li>
-        </ul>
-        </p>
+</p>
         </div>
         </footer>
     }

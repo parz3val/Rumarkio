@@ -3,14 +3,13 @@ div {
     display: flex;
     flex-direction:row;
     background-color:rgb(113, 86, 52);
-    padding: 5pt 5t;
     vertical-align: bottom;
     flex-direction: row;
-    /* justify-content: space-evenly; */
+    justify-content: left;
 
 }
 
-ul {
-    list-style: none;
-    font-size: 15pt;
+p {
+    margin-right: 15pt;
+    padding: 10pt 10pt;
 }

@@ -3,7 +3,7 @@
     <head> 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@700&family=Playfair+Display+SC&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fasthand&family=Noto+Serif+Display:wght@700&family=Playfair+Display+SC&display=swap" rel="stylesheet">
 <style>
 body {
     background-color:rgb(96, 70, 29);
@@ -15,11 +15,19 @@ body {
 }
 .hero-text {
     position:absolute;
-    top: 38%;
-    left: 30%;
+    top: 36%;
+    left: 25%;
     color: white;
     font-family: 'Noto Serif Display', serif;
     font-size: 5em;
+}
+.hero-title {
+    position:absolute;
+    top: 28%;
+    left: 25%;
+    color: white;
+    font-family: 'Fasthand', cursive;
+    font-size: 3em;
 }
 img.hero-img {
     height: 500px;
@@ -28,6 +36,71 @@ img.hero-img {
     opacity: 0.6;
 
 }
+/* Fancy Home css */
+.container {
+  display: flex;
+  width: 100%;
+  padding: 4% 2%;
+  box-sizing: border-box;
+  height: 100vh;
+}
+
+.box {
+  flex: 1;
+  overflow: hidden;
+  transition: 0.5s;
+  margin: 0 2%;
+  box-shadow: 0 20px 30px rgba(226, 167, 41, 0.1);
+  line-height: 0;
+}
+
+.box > img {
+  width: 200%;
+  height: calc(100% - 12vh);
+  -o-object-fit: cover;
+     object-fit: cover;
+  transition: 0.5s;
+  background-color: bisque;
+}
+
+.box > span {
+  font-size: 2.8vh;
+  display: block;
+  visibility: hidden;
+  text-align: center;
+ font-family: 'Noto Serif Display', serif;
+  /* height: 10vh; */
+  /* line-height: 2.6; */
+  color:blanchedalmond;
+  /* background-color: darkgoldenrod; */
+  position: absolute;
+  top: 30%;
+
+}
+.box > title {
+font-size: 3.8vh;
+display: block;
+ font-family: 'Noto Serif Display', serif;
+ height: 10vh;
+  line-height: 2.6;
+  color:blanchedalmond;
+  background-color: darkgoldenrod;
+
+} 
+
+
+.box:hover {
+  flex: 1 1 50%;
+}
+
+.box:hover > img {
+  width: 100%;
+  height: 100%;
+}
+.box:hover > span {
+    visibility: visible;
+}
+
 </style>
     </head>
 
