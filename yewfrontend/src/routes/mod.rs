@@ -6,8 +6,10 @@ pub(crate) mod fancy_home;
 pub(crate) mod login;
 pub(crate) mod not_found;
 pub(crate) mod register;
+pub(crate) mod user_home;
+
 use home::Home;
-use fancy_home::FancyHome;
+use user_home::UserHome;
 use login::Login;
 use not_found::NotFound;
 use register::Register;
@@ -21,7 +23,7 @@ pub enum AppRoute {
     #[at("/")]
     Home,
     #[at("/home")]
-    FancyHome,
+    UserHome,
     #[not_found]
     #[at("/404")]
     NotFound,
@@ -32,7 +34,7 @@ pub fn switch(route: &AppRoute) -> Html {
         AppRoute::Login => html! {<Login/>},
         AppRoute::Register => html! {<Register/>},
         AppRoute::Home => html! {<Home/>},
-        AppRoute::FancyHome => html! {<FancyHome/>},
+        AppRoute::UserHome => html! {<UserHome/>},
         AppRoute::NotFound => html! {<NotFound/>},
     }
 }

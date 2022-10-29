@@ -47,7 +47,7 @@ pub fn login_form() -> Html {
                 login_callback: (original_callback.unwrap().login_callback),
             });
             // log!(response.accessToken);
-            navigator_clone.push(AppRoute::FancyHome);
+            navigator_clone.push(AppRoute::UserHome);
         });
     });
     let details = details_state.clone();
