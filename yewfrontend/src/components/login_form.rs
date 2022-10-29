@@ -4,6 +4,9 @@ use molecules::custom_button::LoginButton;
 use molecules::custom_button::ResetButton;
 use molecules::custom_input::CustomTextInput;
 
+use crate::types;
+use types::api::user::LoginDetails;
+
 use stylist::yew::styled_component;
 use yew::prelude::*;
 
@@ -13,7 +16,13 @@ const STYLE_FILE: &str = include_str!("login_form.css");
 #[styled_component(LoginForm)]
 pub fn login_form() -> Html {
     let style = stylist::Style::new(STYLE_FILE).unwrap();
+    let details_state = use_state(|| LoginDetails::default());
+    let form_submitted = Callback::from(move | event: FocusEvent| {
+        event.prevent_default();
+
+    });
     html! {
+        <form onsubmit={form_submitted}>
         <div class={style}>
             <div class="login-container">
                 <CustomTextInput name={"username".to_owned()} placeholder={"username".to_owned()}/>
@@ -24,5 +33,6 @@ pub fn login_form() -> Html {
                 </div>
             </div>
         </div>
+        </form>
     }
 }

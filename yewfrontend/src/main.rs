@@ -1,6 +1,7 @@
 mod components;
 pub mod routes;
 pub mod molecules;
+pub mod types;
 
 use crate::components::{footer::Footer, header::Header};
 use routes::{switch, AppRoute};
