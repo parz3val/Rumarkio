@@ -2,6 +2,7 @@ use std::ops::Deref;
 
 use crate::molecules;
 use crate::molecules::custom_input::CustomPasswordInput;
+use crate::types::api::user::api_login;
 use molecules::custom_button::LoginButton;
 use molecules::custom_button::ResetButton;
 use molecules::custom_input::CustomTextInput;
@@ -25,9 +26,14 @@ pub fn login_form() -> Html {
     let form_submitted = Callback::from(move |event: FocusEvent| {
         event.prevent_default();
         let _data = details.deref().clone();
-        log!("Password is:: -> ", _data.password.clone());
-        log!("Username is :: -> ", _data.username.deref().clone());
+        let username = _data.username.clone();
+        let password = _data.password.clone();
         // log!("Form submitted event login form");
+        wasm_bindgen_futures::spawn_local(async {
+            let response = api_login(username, password).await;
+            log!(response.accessToken)
+
+        })
     });
     let details = details_state.clone();
     let on_password_change = Callback::from(move |password: String| {
