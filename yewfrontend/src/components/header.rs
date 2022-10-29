@@ -1,12 +1,14 @@
-use crate::routes::AppRoute;
+use crate::{routes::AppRoute, UserAuth};
+use gloo_console::log;
 use stylist::yew::styled_component;
 use yew::prelude::*;
 use yew_router::prelude::*;
 
-
 #[styled_component(Header)]
 pub fn header() -> Html {
-    let login = false;
+    let auth_state = use_context::<UserAuth>();
+    let login = auth_state.unwrap_or_default().logged_in;
+    log!(login);
     html! {
         <nav>
         {
@@ -21,7 +23,13 @@ pub fn header() -> Html {
 }
 
 fn login_view() -> Html {
-    html! {}
+    html! {
+        <div>
+        <h1>
+            {"You are logged in mister!"}
+        </h1>
+        </div>
+    }
 }
 fn logout_view() -> Html {
     html! {
