@@ -2,11 +2,14 @@ use std::ops::Deref;
 
 use crate::molecules;
 use crate::molecules::custom_input::CustomPasswordInput;
+use crate::routes::AppRoute;
 use crate::types::api::user::api_login;
 use crate::UserAuth;
 use molecules::custom_button::LoginButton;
 use molecules::custom_button::ResetButton;
 use molecules::custom_input::CustomTextInput;
+use yew_router::prelude::use_history;
+use yew_router::prelude::History;
 
 use crate::types;
 use types::api::user::LoginDetails;
@@ -22,6 +25,7 @@ pub fn login_form() -> Html {
     let style = stylist::Style::new(STYLE_FILE).unwrap();
     let details_state = use_state(|| LoginDetails::default());
     let auth_state = use_context::<UserAuth>();
+    let navigator = use_history().unwrap();
 
     // handle form submit
     let auth = auth_state.clone();
@@ -32,8 +36,9 @@ pub fn login_form() -> Html {
         let username = _data.username.clone();
         let password = _data.password.clone();
         let auth_clone = auth_state.clone();
+        let navigator_clone = navigator.clone();
         // log!("Form submitted event login form");
-        wasm_bindgen_futures::spawn_local(async {
+        wasm_bindgen_futures::spawn_local(async move {
             let response = api_login(username, password).await;
             let original_callback = auth_clone.clone();
             auth_clone.unwrap().login_callback.emit(UserAuth {
@@ -42,6 +47,7 @@ pub fn login_form() -> Html {
                 login_callback: (original_callback.unwrap().login_callback),
             });
             // log!(response.accessToken);
+            navigator_clone.push(AppRoute::FancyHome);
         });
     });
     let details = details_state.clone();

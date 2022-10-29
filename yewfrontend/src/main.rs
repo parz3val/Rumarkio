@@ -29,10 +29,14 @@ fn app() -> Html {
     //     logged_in: false,
     //     login_callback: (auth_handler),
     // });
-    let auth_handler = Callback::from(move |auth_state: UserAuth| log!(auth_state.access_token, auth_state.logged_in));
+    let logged_in = use_state(|| false);
+    let logged_in_cloned = logged_in.clone();
+    let logged_in_state = logged_in.clone();
+    let auth_handler =
+        Callback::from(move |auth_state: UserAuth| logged_in_cloned.set(auth_state.logged_in));
     let auth_state = use_state(|| UserAuth {
         access_token: String::new(),
-        logged_in: false,
+        logged_in: *logged_in_state,
         login_callback: (auth_handler),
     });
 
@@ -40,7 +44,7 @@ fn app() -> Html {
         <ContextProvider<UserAuth> context={auth_state.deref().clone()}>
             <div class={stylesheet}>
             <BrowserRouter>
-            <Header/>
+            <Header auth={*logged_in}/>
             <Switch<AppRoute> render={Switch::render(switch)} />
             </BrowserRouter>
             <Footer/>

@@ -4,11 +4,13 @@ use stylist::yew::styled_component;
 use yew::prelude::*;
 use yew_router::prelude::*;
 
+#[derive(Properties, PartialEq)]
+pub struct HeaderProps {
+    pub auth : bool
+}
 #[styled_component(Header)]
-pub fn header() -> Html {
-    let auth_state = use_context::<UserAuth>();
-    let login = auth_state.unwrap_or_default().logged_in;
-    log!(login);
+pub fn header(props: &HeaderProps) -> Html {
+    let login = props.auth;
     html! {
         <nav>
         {
