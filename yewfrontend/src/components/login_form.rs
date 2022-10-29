@@ -1,3 +1,5 @@
+use std::ops::Deref;
+
 use crate::molecules;
 use crate::molecules::custom_input::CustomPasswordInput;
 use molecules::custom_button::LoginButton;
@@ -12,15 +14,18 @@ use yew::prelude::*;
 
 const STYLE_FILE: &str = include_str!("login_form.css");
 
-
 #[styled_component(LoginForm)]
 pub fn login_form() -> Html {
     let style = stylist::Style::new(STYLE_FILE).unwrap();
     let details_state = use_state(|| LoginDetails::default());
-    let form_submitted = Callback::from(move | event: FocusEvent| {
-        event.prevent_default();
-
-    });
+    
+    // handle form submit
+    let form_submitted = 
+        Callback::from(move |event: FocusEvent| {
+        let details_state = details_state.clone();
+            event.prevent_default();
+            let _data = details_state.deref().clone();
+        });
     html! {
         <form onsubmit={form_submitted}>
         <div class={style}>
