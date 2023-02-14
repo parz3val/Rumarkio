@@ -11,3 +11,4 @@ Cargo.lock
 /rumarkio-frontend/node_modules
 /yewfrontend/target
 /yewfrontend/debug
+.DS_Store
