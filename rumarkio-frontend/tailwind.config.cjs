@@ -2,6 +2,10 @@
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
+    fontFamily: {
+      'fira-code': ['FiraCode-Regular', 'monospace'],
+      'fira-mono': ['FiraMono-Regular', 'monospace'],
+    },
     colors: {
       'primary-orange': '#F05D23',
       'font-primary-dark': '#261C15',
