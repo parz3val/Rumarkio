@@ -30,17 +30,17 @@ export default function Header() {
           <ul className="ml-4 flex items-center space-x-4">
             <li>
               <Link href="/about" passHref>
-                <span className="text-gray-100 hover:text-white cursor-pointer">About</span>
+                <span className="text-gray-100 cursor-pointer">About</span>
               </Link>
             </li>
             <li>
               <Link href="/login" passHref>
-                <span className="text-gray-100 hover:text-white cursor-pointer">Login</span>
+                <span className="text-gray-100 cursor-pointer">Login</span>
               </Link>
             </li>
             <li>
               <Link href="/download" passHref>
-                <span className="px-4 py-2 rounded-full font-medium cursor-pointer hover:bg-white hover:text-gray-100 transition-colors duration-300">
+                <span className="px-4 py-2 rounded-full font-medium cursor-pointer">
                   Download
                 </span>
               </Link>

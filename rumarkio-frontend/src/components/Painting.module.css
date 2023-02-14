@@ -1,0 +1,17 @@
+.painting {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: transparent;
+}
+
+.painting img {
+  border: 15px solid #ffff;
+  margin: 10px;
+  aspect-ratio: 9/10;
+  background-size:cover;
+  background-position: center;
+  height: auto;
+}
+
