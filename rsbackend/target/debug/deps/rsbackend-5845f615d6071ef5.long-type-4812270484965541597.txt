@@ -1,1 +1,0 @@
-fn(State<SupaBase>, axum::extract::Path<i64>) -> impl Future<Output = Result<axum::Json<User>, axum::Error>> {get_user_profile}
