@@ -1,0 +1,1 @@
+fn(State<{type error}>, axum::extract::Path<i64>) -> impl Future<Output = Result<impl IntoResponse, axum::http::StatusCode>> {get_user_profile}
