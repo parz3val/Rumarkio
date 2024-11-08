@@ -1,0 +1,1 @@
+fn(axum::extract::State<AppState>, axum::Extension<dto::AuthUser>, axum::Json<dto::TagForm>) -> impl std::future::Future<Output = std::result::Result<impl axum::response::IntoResponse, (http::StatusCode, axum::Json<helpers::ErrorResponse>)>> {handlers::create_tag}

@@ -1,0 +1,31 @@
+{
+  "manifest_version": 2,
+  "name": "Rumarkio Web Clipper",
+  "version": "0.42",
+  "description": "Rumarkio Web Clipper Extension",
+  "homepage_url": "https://github.com/parz3val/Rumarkio",
+  "icons": {
+    "48": "icons/resized_rumarkio_icon_48x48.png",
+    "96": "icons/resized_rumarkio_icon_96x96.png"
+  },
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "<all_urls>",
+    "webRequest",
+    "webRequestBlocking",
+    "*://localhost/*",
+    "storage"
+  ],
+  "browser_action": {
+    "default_title": "Rumarkio Web Clipper",
+    "default_icon": "icons/resized_rumarkio_icon_96x96.png",
+    "default_popup": "popup/welcome.html"
+  },
+  "web_accessible_resources": [
+    "html/loggedIn.html",
+    "html/loggedOut.html",
+    "js/login.js",
+    "js/script.js"
+  ]
+}

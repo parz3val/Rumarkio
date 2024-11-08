@@ -1,0 +1,1 @@
+fn(axum::extract::State<AppState>, axum::Extension<{type error}>, axum::Json<{type error}>) -> impl std::future::Future<Output = std::result::Result<impl axum::response::IntoResponse, (http::StatusCode, axum::Json<helpers::ErrorResponse>)>> {handlers::create_session}

@@ -1,0 +1,12 @@
+/home/lyminox/Rumarkio/marksbot/target/debug/deps/libsqlx-3ec1b779e32e7d89.rmeta: /home/lyminox/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/lib.rs /home/lyminox/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/any/mod.rs /home/lyminox/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/macros/mod.rs /home/lyminox/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/ty_match.rs /home/lyminox/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/spec_error.rs /home/lyminox/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/lib.md /home/lyminox/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/macros/test.md /home/lyminox/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/any/install_drivers_note.md
+
+/home/lyminox/Rumarkio/marksbot/target/debug/deps/sqlx-3ec1b779e32e7d89.d: /home/lyminox/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/lib.rs /home/lyminox/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/any/mod.rs /home/lyminox/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/macros/mod.rs /home/lyminox/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/ty_match.rs /home/lyminox/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/spec_error.rs /home/lyminox/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/lib.md /home/lyminox/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/macros/test.md /home/lyminox/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/any/install_drivers_note.md
+
+/home/lyminox/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/lib.rs:
+/home/lyminox/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/any/mod.rs:
+/home/lyminox/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/macros/mod.rs:
+/home/lyminox/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/ty_match.rs:
+/home/lyminox/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/spec_error.rs:
+/home/lyminox/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/lib.md:
+/home/lyminox/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/macros/test.md:
+/home/lyminox/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/any/install_drivers_note.md:

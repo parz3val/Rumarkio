@@ -1,0 +1,1 @@
+fn(State<AppState>, axum::Json<LoginForm>) -> impl std::future::Future<Output = Result<impl IntoResponse, (http::StatusCode, axum::Json<helpers::ErrorResponse>)>> {login}

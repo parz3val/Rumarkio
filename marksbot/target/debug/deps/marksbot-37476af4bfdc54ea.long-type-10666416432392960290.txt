@@ -1,0 +1,1 @@
+fn(axum::extract::State<AppState>, axum::Json<dto::LoginForm>) -> impl std::future::Future<Output = std::result::Result<{type error}, {type error}>> {handlers::login}
