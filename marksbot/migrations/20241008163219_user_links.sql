@@ -1,6 +1,6 @@
 create table if not exists user_links(
   id uuid not null primary key,
-  url varchar(1024) not null,
+  url varchar(1024) unique not null,
   user_id uuid not null,
   title varchar(1024),
   description text,
@@ -8,6 +8,7 @@ create table if not exists user_links(
   content text,
   created_at timestamp not null default current_timestamp,
   updated_at timestamp not null default current_timestamp,
+  completed boolean not null default false,
   constraint user_id_fk foreign key (user_id) references users(id) on delete cascade
 );
 create index user_title_index on user_links (title);

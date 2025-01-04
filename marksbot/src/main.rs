@@ -6,8 +6,9 @@ use axum::middleware;
 use axum::routing::{get, post};
 use tower_http::cors::{Any, CorsLayer};
 
-// const DB_PASS: &str = "HarryDBPassAwesome1234";
-const DB_URI: &str = "postgresql://postgres.nwxhmrihcazeqwuldqyk:HarryDBPassAwesome1234@aws-0-ap-south-1.pooler.supabase.com:5432/postgres";
+const DB_URI: &str = "postgresql://postgres:rumarkio@localhost:5432/rumarkio_test";
+
+pub(crate) mod database;
 pub(crate) mod dto;
 pub(crate) mod handlers;
 pub(crate) mod helpers;
@@ -15,7 +16,6 @@ pub(crate) mod middlewares;
 pub(crate) mod models;
 pub(crate) mod services;
 pub(crate) mod sqlite_db;
-pub(crate) mod database;
 
 #[derive(Clone)]
 pub(crate) struct AppState {
