@@ -1,1 +1,0 @@
-fn(axum::extract::State<AppState>, axum::Json<{type error}>) -> impl std::future::Future<Output = impl axum::response::IntoResponse> {handlers::sign_up}

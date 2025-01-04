@@ -1,1 +1,0 @@
-fn(State<AppState>, axum::Json<LoginForm>) -> impl std::future::Future<Output = Result<ApiResponse<UserModel>, (http::StatusCode, axum::Json<helpers::ErrorResponse>)>> {login}

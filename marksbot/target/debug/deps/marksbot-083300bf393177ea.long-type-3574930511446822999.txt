@@ -1,1 +1,0 @@
-fn(State<AppState>, Extension<AuthUser>, axum::Json<SessionForm>) -> impl std::future::Future<Output = Result<impl IntoResponse, (http::StatusCode, axum::Json<helpers::ErrorResponse>)>> {create_session}

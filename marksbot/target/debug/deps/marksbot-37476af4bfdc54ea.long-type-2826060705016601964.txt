@@ -1,1 +1,0 @@
-fn(axum::extract::State<AppState>, axum::Extension<dto::AuthUser>) -> impl std::future::Future<Output = std::result::Result<impl axum::response::IntoResponse, {type error}>> {handlers::get_links}
